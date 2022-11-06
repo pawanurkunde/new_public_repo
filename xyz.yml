@@ -1,9 +1,8 @@
 ---
 - name:
-  hosts: all
+  hosts: localhost
   tasks:
     - name: tasks_1
       debug:
         msg: "hello world"
 ...
-
