@@ -1,0 +1,31 @@
+---
+- name: css
+  hosts: all
+  become: true
+  become_method: sudo
+  tasks:
+          - name: "update packages and upgrade"
+            apt:
+              update_cache: true
+              upgrade: dist
+              force_apt_get: true
+          - name: "install apache server"
+            apt:
+              name: apache2
+              state: latest
+          - name: "create document root"
+            file:
+             path: "/var/www/html"
+             state: directory
+             owner: "www-data"
+             mode: 0755
+          - name: "enable apache on firewall"
+            ufw:
+              rule: allow
+              port: 80
+              proto: tcp
+          - name: "restart apache2 service"
+            service:
+                    name: apache2
+                    state: restarted
+...
